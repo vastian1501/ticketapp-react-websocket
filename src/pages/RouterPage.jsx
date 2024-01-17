@@ -1,4 +1,4 @@
-import { MenuFoldOutlined, MenuUnfoldOutlined, UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
+import { MenuFoldOutlined, MenuUnfoldOutlined, TableOutlined, UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
 const { Content, Footer, Sider } = Layout;
 
@@ -11,10 +11,10 @@ import {
 
 import { Ingresar } from './Ingresar';
 import { Cola } from './Cola';
-import { Escritorio } from './Escritorio';
 import { CrearTicket } from './CrearTicket';
 import { Header } from 'antd/es/layout/layout';
 import { useState } from 'react';
+import { Mesa } from './Mesa';
 
 function getItem(label, key, icon, children, type) {
   return {
@@ -30,6 +30,7 @@ const items = [
   getItem(<Link to="/ingresar">Ingresar</Link>, '1', <UserOutlined />),
   getItem(<Link to="/cola">Cola</Link>, '2', <VideoCameraOutlined />),
   getItem(<Link to="/crear">Crear Ticket</Link>, '3', <UploadOutlined />),
+  getItem(<Link to="/mesa">Mesa</Link>, '4', <TableOutlined />),
 ]
 
 export const RouterPage = () => {
@@ -40,7 +41,7 @@ export const RouterPage = () => {
   } = theme.useToken();
   return (
     <BrowserRouter basename='/'>
-      <Layout style={{ height: '100dvh' }} >
+      <Layout style={{ minHeight: '100dvh' }} >
       <Sider 
           trigger={null} 
           collapsible 
@@ -55,7 +56,7 @@ export const RouterPage = () => {
           }}
         >
           <div className="demo-logo-vertical" />
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={['2']} items={items} />
+          <Menu theme="dark" mode="inline" defaultSelectedKeys={['0']} items={items} />
         </Sider>
         <Layout>
         <Header
@@ -92,7 +93,7 @@ export const RouterPage = () => {
                 <Route path='/ingresar' element={<Ingresar/>} />
                 <Route path='/cola' element={<Cola/>} />
                 <Route path='/crear' element={<CrearTicket/>} />
-                <Route path='/escritorio' element={<Escritorio/>} />
+                <Route path='/mesa' element={<Mesa/>} />
               </Routes>
             </div>
           </Content>
