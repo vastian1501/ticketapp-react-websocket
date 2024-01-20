@@ -13,8 +13,9 @@ import { Ingresar } from './Ingresar';
 import { Cola } from './Cola';
 import { CrearTicket } from './CrearTicket';
 import { Header } from 'antd/es/layout/layout';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Mesa } from './Mesa';
+import { UiContext } from '../context/UiContext';
 
 function getItem(label, key, icon, children, type) {
   return {
@@ -39,13 +40,17 @@ export const RouterPage = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  const { menu } = useContext(UiContext)
+
+
   return (
     <BrowserRouter basename='/'>
       <Layout style={{ minHeight: '100dvh' }} >
       <Sider 
           trigger={null} 
-          collapsible 
-          collapsed={collapsed}
+          collapsible
+          collapsed={menu}
           breakpoint="lg"
           collapsedWidth="0"
           onBreakpoint={(broken) => {

@@ -1,18 +1,31 @@
 import { LoginOutlined } from '@ant-design/icons';
 import { Button, Divider, Form, Input, InputNumber } from 'antd';
 import { Typography } from 'antd';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getUser } from '../helpers/getUser';
 const { Title, Text } = Typography;
 
 export const Ingresar = () => {
 
+  const [user] = useState(getUser)
   const navigate = useNavigate();
 
-  const onFinish = (values) => {
-    console.log('Success:', values);
+  useEffect(() => {
+    if (user.agente && user.mesa) {
+      navigate('/mesa')
+    }
+  })
 
+  const onFinish = (values) => {
+    //console.log('Success:', values);
+
+    localStorage.setItem('agente', values.agente)
+    localStorage.setItem('mesa', values.mesa)
+    
     navigate('/mesa')
   };
+
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };

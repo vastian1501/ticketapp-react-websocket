@@ -1,9 +1,13 @@
 import { FileAddOutlined } from "@ant-design/icons";
 import { Button, Col, Row, Typography } from "antd"
+import { useHideMenu } from "../hooks/useHideMenu";
 
 const { Title, Text, Paragraph } = Typography;
 
 export const CrearTicket = () => {
+
+  useHideMenu(true)
+
   return (
     <>
       <Row>

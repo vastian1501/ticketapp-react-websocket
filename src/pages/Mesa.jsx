@@ -1,12 +1,25 @@
 import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import { Button, Col, Divider, Row, Typography } from "antd"
+import { useEffect, useState } from "react";
+import { getUser } from "../helpers/getUser";
+import { useNavigate } from "react-router-dom";
 
 const { Title, Text } = Typography;
 
 export const Mesa = () => {
 
+  const [user] = useState(getUser())
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!user.agente || !user.mesa) {
+      navigate('/ingresar')
+    }
+  })
+
   const handleExit = () => {
-    console.log('Exit');
+    localStorage.clear()
+    navigate('/ingresar')
   }
 
   const handleNextTicket = () => {
@@ -17,14 +30,14 @@ export const Mesa = () => {
     <>
       <Row>
         <Col span={20}>
-          <Title level={2}>Javier</Title>
+          <Title level={2}>{user.agente}</Title>
           <Text>Usted está trabajando en el escritorio: </Text>
-          <Text type="success">5</Text>
+          <Text type="success">{user.mesa}</Text>
         </Col>
 
         <Col span={4} align="right">
           <Button shape="round" danger onClick={handleExit}>
-          <CloseCircleOutlined />
+            <CloseCircleOutlined />
             Salir
           </Button>
         </Col>
@@ -39,7 +52,7 @@ export const Mesa = () => {
       <Row>
         <Col offset={18} span={6} align="right">
           <Button shape="round" type="primary" onClick={handleNextTicket}>
-          <CheckCircleOutlined />
+            <CheckCircleOutlined />
             Siguiente Ticket
           </Button>
         </Col>

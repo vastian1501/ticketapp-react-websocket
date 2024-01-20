@@ -1,8 +1,11 @@
 import { Card, Col, Divider, List, Row, Tag, Typography } from "antd";
+import { useHideMenu } from "../hooks/useHideMenu";
 
 const { Title, Text } = Typography;
 
 export const Cola = () => {
+
+  useHideMenu(true)
 
   const data = [
     { ticketNo: 1, mesa: '21', agente: 'Agente1' },
