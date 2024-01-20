@@ -1,12 +1,24 @@
 import { FileAddOutlined } from "@ant-design/icons";
 import { Button, Col, Row, Typography } from "antd"
 import { useHideMenu } from "../hooks/useHideMenu";
+import { SocketContext } from "../context/SocketContext";
+import { useContext, useState } from "react";
 
 const { Title, Text, Paragraph } = Typography;
 
 export const CrearTicket = () => {
 
+  const [ ticket, setTicket ] = useState(null)
+
+  const { socket } = useContext(SocketContext)
+
   useHideMenu(true)
+
+  const handleNewTicket = () => {
+    socket.emit('solicitar-ticket', null, ( data ) => {
+      setTicket(data)
+    })
+  }
 
   return (
     <>
@@ -18,6 +30,7 @@ export const CrearTicket = () => {
             type="primary"
             shape="round"
             size="large"
+            onClick={ handleNewTicket }
           >
             Nuevo Ticket
           </Button>
@@ -30,9 +43,9 @@ export const CrearTicket = () => {
           </Title>
           <br />
           <Text type="success" style={{ fontSize: 55 }}>
-            55
+            {ticket != null ? ticket.number : '-'}
           </Text>
-          <Paragraph copyable={{ text: '55' }}>Su número de ticket generado es: 55</Paragraph>
+          <Paragraph copyable={{ text: `${ticket && ticket.number}` }}>{ticket != null ? `Su número de ticket generado es: ${ticket.number}` : 'No hay ticket'}</Paragraph>
         </Col>
       </Row>
     </>

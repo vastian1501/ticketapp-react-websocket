@@ -4,9 +4,14 @@ import { Typography } from 'antd';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getUser } from '../helpers/getUser';
+import { useSocket } from '../hooks/useSocket';
 const { Title, Text } = Typography;
 
 export const Ingresar = () => {
+
+  const { online } = useSocket();
+
+  console.log(online)
 
   const [user] = useState(getUser)
   const navigate = useNavigate();
