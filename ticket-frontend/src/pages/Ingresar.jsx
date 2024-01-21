@@ -4,14 +4,9 @@ import { Typography } from 'antd';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getUser } from '../helpers/getUser';
-import { useSocket } from '../hooks/useSocket';
 const { Title, Text } = Typography;
 
 export const Ingresar = () => {
-
-  const { online } = useSocket();
-
-  console.log(online)
 
   const [user] = useState(getUser)
   const navigate = useNavigate();
@@ -23,11 +18,9 @@ export const Ingresar = () => {
   })
 
   const onFinish = (values) => {
-    //console.log('Success:', values);
-
     localStorage.setItem('agente', values.agente)
     localStorage.setItem('mesa', values.mesa)
-    
+
     navigate('/mesa')
   };
 

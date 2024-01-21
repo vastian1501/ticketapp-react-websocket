@@ -47,40 +47,38 @@ export const RouterPage = () => {
   return (
     <BrowserRouter basename='/'>
       <Layout style={{ minHeight: '100dvh' }} >
-      <Sider 
-          trigger={null} 
-          collapsible
-          collapsed={menu}
-          breakpoint="lg"
-          collapsedWidth="0"
-          onBreakpoint={(broken) => {
-            console.log(broken);
-          }}
-          onCollapse={(collapsed, type) => {
-            console.log(collapsed, type);
-          }}
-        >
-          <div className="demo-logo-vertical" />
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={['0']} items={items} />
-        </Sider>
+        {!menu &&
+          <Sider
+            trigger={null}
+            collapsible
+            collapsed={collapsed}
+            breakpoint="lg"
+            collapsedWidth="0"
+          >
+            <div className="demo-logo-vertical" />
+            <Menu theme="dark" mode="inline" defaultSelectedKeys={['0']} items={items} />
+          </Sider>
+        }
         <Layout>
-        <Header
-          style={{
-            padding: 0,
-            background: colorBgContainer,
-          }}
-        >
-          <Button
-            type="text"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            onClick={() => setCollapsed(!collapsed)}
-            style={{
-              fontSize: '16px',
-              width: 64,
-              height: 64,
-            }}
-          />
-        </Header>
+          {!menu &&
+            <Header
+              style={{
+                padding: 0,
+                background: colorBgContainer,
+              }}
+            >
+              <Button
+                type="text"
+                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                onClick={() => setCollapsed(!collapsed)}
+                style={{
+                  fontSize: '16px',
+                  width: 64,
+                  height: 64,
+                }}
+              />
+            </Header>
+          }
           <Content
             style={{
               margin: '24px 16px 0',
@@ -95,10 +93,10 @@ export const RouterPage = () => {
               }}
             >
               <Routes>
-                <Route path='/ingresar' element={<Ingresar/>} />
-                <Route path='/cola' element={<Cola/>} />
-                <Route path='/crear' element={<CrearTicket/>} />
-                <Route path='/mesa' element={<Mesa/>} />
+                <Route path='/ingresar' element={<Ingresar />} />
+                <Route path='/cola' element={<Cola />} />
+                <Route path='/crear' element={<CrearTicket />} />
+                <Route path='/mesa' element={<Mesa />} />
               </Routes>
             </div>
           </Content>

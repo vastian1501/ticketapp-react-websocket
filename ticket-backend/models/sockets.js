@@ -21,6 +21,13 @@ class Sockets {
 
               callback(newTicket);
             })
+
+            socket.on('next-ticket', ({agente, mesa}, callback) => {
+                const nextTicket = this.ticketList.assignTicket(agente, mesa)
+                callback(nextTicket)
+
+                this.io.emit('assigned-tickets', this.ticketList.last13)
+            })
         });
 
     }

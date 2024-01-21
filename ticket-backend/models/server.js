@@ -21,24 +21,26 @@ class Server {
         origin: "http://localhost:5173/"
       }
     })
+
+    this.socket = new Sockets(this.io)
   }
 
   middlewares() {
     // CORS
     this.app.use(cors());
-  }
 
-  startSockets() {
-    new Sockets(this.io);
+    this.app.get('/last', (req, res) => {
+      res.json({
+        ok: true,
+        last: this.socket.ticketList.last13
+      })
+    })
   }
 
   execute() {
 
     // Inicializar Middlewares
-    //this.middlewares();
-
-    // Inicializar sockets
-    this.startSockets();
+    this.middlewares();
 
     // Inicializar Server
     this.server.listen(this.port, () => {

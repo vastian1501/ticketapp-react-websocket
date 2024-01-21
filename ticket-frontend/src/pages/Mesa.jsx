@@ -1,8 +1,9 @@
 import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import { Button, Col, Divider, Row, Typography } from "antd"
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getUser } from "../helpers/getUser";
 import { useNavigate } from "react-router-dom";
+import { SocketContext } from "../context/SocketContext";
 
 const { Title, Text } = Typography;
 
@@ -10,6 +11,8 @@ export const Mesa = () => {
 
   const [user] = useState(getUser())
   const navigate = useNavigate()
+  const { socket } = useContext(SocketContext)
+  const [currentTicket, setCurrentTicket] = useState(null)
 
   useEffect(() => {
     if (!user.agente || !user.mesa) {
@@ -23,7 +26,9 @@ export const Mesa = () => {
   }
 
   const handleNextTicket = () => {
-    console.log('Next Ticket');
+    socket.emit('next-ticket', user, (data) => {
+      setCurrentTicket(data)
+    })
   }
 
   return (
@@ -46,7 +51,9 @@ export const Mesa = () => {
       <Row>
         <Col>
           <Text>Está atendiendo el ticket número: </Text>
-          <Text style={{ fontSize: 30 }} type="danger">55</Text>
+          <Text style={{ fontSize: 30 }} type="danger">
+            {currentTicket != null ? currentTicket.number : 'No hay tickets'}
+          </Text>
         </Col>
       </Row>
       <Row>
